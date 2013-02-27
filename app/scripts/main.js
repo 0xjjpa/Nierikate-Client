@@ -1,4 +1,16 @@
 var f = new Firebase('https://jjperezaguinaga.firebaseio.com/');
+
+var latestFeed = f.child('latest');
+latestFeed.on('value', function(s) {
+	var dataType = s.val() || "image";
+	var dataFeed = f.child(dataType);
+	dataFeed.on('value', function(r) {
+		var ele = document.getElementById(dataType)
+		ele.src = r.val();
+		ele.style.visibility = "visible";
+	})
+});
+
 f.on('child_changed', function(s) {
 	var elements = ["audio", "video", "image"];
 
@@ -10,5 +22,4 @@ f.on('child_changed', function(s) {
   	var ele = document.getElementById(typeOfElement);
   	ele.src = s.val();
   	ele.style.visibility = "visible";
-  	console.log(ele);
 });
