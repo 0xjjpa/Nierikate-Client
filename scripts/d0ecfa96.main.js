@@ -12,6 +12,7 @@ latestFeed.on('value', function(s) {
 });
 
 f.on('child_changed', function(s) {
+	if(s.name() === 'latest') return;
 	var elements = ["audio", "video", "image"];
 
 	for (var i = 0, len = elements.length; i < len; i ++) {
